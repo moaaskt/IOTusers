@@ -1,102 +1,61 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<?= $this->extend('layouts/main') ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title><?= esc($title) ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: sans-serif;
-        }
+<?= $this->section('title') ?>
+    <?= esc($title) ?>
+<?= $this->endSection() ?>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+<?= $this->section('content') ?>
 
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+    <h1><?= esc($title) ?></h1>
 
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .btn {
-            padding: 5px 10px;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-        }
-
-        .btn-add {
-            background-color: #28a745;
-        }
-
-        .btn-edit {
-            background-color: #007bff;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-        }
-    </style>
-</head>
-
-<body>
     <?php if (session()->getFlashdata('success')): ?>
-        <div
-            style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+        <div class="alert alert-success" role="alert">
             <?= session()->getFlashdata('success') ?>
         </div>
     <?php endif; ?>
 
-
-    <h1><?= esc($title) ?></h1>
-
     <p>
-        <a href="<?= site_url('sensores/new') ?>" class="btn btn-add">Adicionar Novo Sensor</a>
+        <a href="<?= site_url('sensores/new') ?>" class="btn btn-success mb-3">Adicionar Novo Sensor</a>
     </p>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nome do Sensor</th>
-            <th>Tipo</th>
-            <th>Valor</th>
-            <th>Status</th>
-            <th>Ações</th>
-        </tr>
-
-        <?php if (!empty($sensores) && is_array($sensores)): ?>
-            <?php foreach ($sensores as $sensor): ?>
-                <tr>
-                    <td><?= esc($sensor['id']) ?></td>
-                    <td><?= esc($sensor['nome']) ?></td>
-                    <td><?= esc($sensor['tipo']) ?></td>
-                    <td><?= esc($sensor['valor']) ?></td>
-                    <td><?= esc($sensor['status']) ?></td>
-                    <td style="display: flex; gap: 5px;">
-                        <a href="<?= site_url('sensores/edit/' . $sensor['id']) ?>" class="btn btn-edit">Editar</a>
-
-                        <?= form_open('sensores/delete/' . $sensor['id'], ['onsubmit' => "return confirm('Tem certeza que deseja excluir este sensor?');"]) ?>
-                        <button type="submit" class="btn btn-delete">Excluir</button>
-                        <?= form_close() ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
             <tr>
-                <td colspan="6">Nenhum sensor encontrado.</td>
+                <th>ID</th>
+                <th>Nome do Sensor</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Status</th>
+                <th>Ações</th>
             </tr>
-        <?php endif; ?>
+        </thead>
+        <tbody>
+            <?php if (!empty($sensores) && is_array($sensores)): ?>
+                <?php foreach ($sensores as $sensor): ?>
+                    <tr>
+                        <td><?= esc($sensor['id']) ?></td>
+                        <td><?= esc($sensor['nome']) ?></td>
+                        <td><?= esc($sensor['tipo']) ?></td>
+                        <td><?= esc($sensor['valor']) ?></td>
+                        <td>
+                            <span class="badge <?= ($sensor['status'] === 'ativo') ? 'bg-success' : 'bg-danger' ?>">
+                                <?= esc($sensor['status']) ?>
+                            </span>
+                        </td>
+                        <td class="d-flex" style="gap: 5px;">
+                            <a href="<?= site_url('sensores/edit/' . $sensor['id']) ?>" class="btn btn-primary btn-sm">Editar</a>
+                            <?= form_open('sensores/delete/' . $sensor['id'], ['onsubmit' => "return confirm('Tem certeza que deseja excluir este sensor?');", 'class' => 'd-inline']) ?>
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            <?= form_close() ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6" class="text-center">Nenhum sensor encontrado.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
     </table>
 
-</body>
-
-</html>
+<?= $this->endSection() ?>
