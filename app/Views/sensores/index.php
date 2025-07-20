@@ -48,7 +48,7 @@
                     <td><?= esc($sensor['valor']) ?></td>
                     <td><?= esc($sensor['status']) ?></td>
                     <td>
-                        <a href="#" class="btn btn-edit">Editar</a>
+                        <a href="<?= site_url('sensores/edit/' . $sensor['id']) ?>" class="btn btn-edit">Editar</a>
                         <a href="#" class="btn btn-delete">Excluir</a>
                     </td>
                 </tr>

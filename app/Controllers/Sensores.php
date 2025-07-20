@@ -11,7 +11,53 @@ class Sensores extends BaseController
      */
 
 
-// Adicione este novo método dentro da classe Sensores
+
+
+
+public function update($id = null)
+{
+    $model = new SensorModel();
+    helper('url');
+
+    // Pega todos os dados que foram enviados pelo formulário de edição
+    $data = $this->request->getPost();
+
+    // O método update() do Model precisa do ID do registro e do array com os novos dados
+    if ($model->update($id, $data)) {
+        // Se a atualização for bem-sucedida, redireciona para a lista com uma mensagem
+        return redirect()->to(site_url('sensores'))->with('success', 'Sensor atualizado com sucesso!');
+    } else {
+        // Se houver erros (ex: validação), volta para a página anterior
+        return redirect()->back()->withInput()->with('errors', 'Houve um erro ao atualizar.');
+    }
+}
+
+    
+
+    public function edit($id = null)
+{
+    $model = new SensorModel();
+    helper('form');
+
+    // Busca o sensor no banco de dados pelo ID
+    $data['sensor'] = $model->find($id);
+
+    if (empty($data['sensor'])) {
+        // Se não encontrar o sensor, mostra um erro 404 apropriado
+        throw new \CodeIgniter\Exceptions\PageNotFoundException('Sensor não encontrado com o ID: ' . $id);
+    }
+
+    $data['title'] = 'Editar Sensor: ' . esc($data['sensor']['nome']);
+
+    // Carrega a view de edição, passando os dados do sensor para ela
+    return view('sensores/edit', $data);
+}
+
+
+
+
+
+    // classe para exibir a lista de sensores
 public function create()
 {
     helper('url'); // Garante que a função de redirecionamento funcione bem
