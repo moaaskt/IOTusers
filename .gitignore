@@ -1,0 +1,21 @@
+# Arquivos e pastas do Composer
+/vendor
+composer.lock
+
+# Arquivo de ambiente com senhas e segredos
+/.env
+
+# Pasta de logs, cache, sessões, etc.
+/writable
+/writable/*
+!/writable/.gitkeep
+
+# Arquivos de IDEs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
