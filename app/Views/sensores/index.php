@@ -57,5 +57,7 @@
             <?php endif; ?>
         </tbody>
     </table>
-
+  <div class="mt-4">
+        <?= $pager->links('default', 'bootstrap_pagination') ?>
+    </div>
 <?= $this->endSection() ?>

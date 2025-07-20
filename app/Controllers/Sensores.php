@@ -12,7 +12,7 @@ class Sensores extends BaseController
         // Carrega os helpers para todos os métodos deste controller
         helper(['form', 'url']);
     }
-    
+
     /**
      * Exibe a lista de todos os sensores.
      */
@@ -93,23 +93,22 @@ class Sensores extends BaseController
 
 
 
-    public function index()
-    {
-        helper('form');
+   public function index()
+{
+    $model = new SensorModel();
 
+    $data = [
+        // O paginate() substitui o findAll(). O número 10 indica 10 itens por página.
+        'sensores' => $model->paginate(10), 
 
-        // 1. Instancia o Model
-        $model = new SensorModel();
+        // O pager cria os links da paginação (1, 2, 3...)
+        'pager'    => $model->pager,
 
-        // 2. Prepara os dados para a View
-        $data = [
-            'sensores' => $model->findAll(), // Busca todos os registros na tabela
-            'title' => 'Lista de Sensores',
-        ];
+        'title'    => 'Lista de Sensores',
+    ];
 
-        // 3. Carrega a View e passa os dados para ela
-        return view('sensores/index', $data);
-    }
+    return view('sensores/index', $data);
+}
 
     public function delete($id = null)
     {

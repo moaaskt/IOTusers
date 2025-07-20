@@ -1,54 +1,47 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title><?= esc($title) ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input[type="text"], input[type="number"], select { width: 100%; padding: 8px; box-sizing: border-box; }
-        .btn { padding: 10px 15px; color: white; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; }
-        .btn-success { background-color: #007bff; }
-        a.btn-secondary { background-color: #6c757d; display: inline-block; }
-    </style>
-</head>
-<body>
+<?= $this->extend('layouts/main') ?>
+
+<?= $this->section('title') ?>
+    <?= esc($title) ?>
+<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 
     <h1><?= esc($title) ?></h1>
 
-    <?= validation_list_errors() ?>
+    <?php if (!empty(session()->getFlashdata('errors')) || !empty(\Config\Services::validation()->getErrors())): ?>
+    <div class="alert alert-danger" role="alert">
+        <?= \Config\Services::validation()->listErrors() ?>
+    </div>
+<?php endif; ?>
 
     <?= form_open('sensores/update/' . $sensor['id']) ?>
 
-        <div class="form-group">
-            <label for="nome">Nome do Sensor</label>
-            <input type="text" name="nome" id="nome" value="<?= old('nome', $sensor['nome']) ?>" required>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Sensor</label>
+            <input type="text" name="nome" id="nome" class="form-control" value="<?= old('nome', $sensor['nome']) ?>" required>
         </div>
 
-        <div class="form-group">
-            <label for="tipo">Tipo</label>
-            <input type="text" name="tipo" id="tipo" value="<?= old('tipo', $sensor['tipo']) ?>">
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <input type="text" name="tipo" id="tipo" class="form-control" value="<?= old('tipo', $sensor['tipo']) ?>">
         </div>
 
-        <div class="form-group">
-            <label for="valor">Valor</label>
-            <input type="number" step="0.01" name="valor" id="valor" value="<?= old('valor', $sensor['valor']) ?>">
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" step="0.01" name="valor" id="valor" class="form-control" value="<?= old('valor', $sensor['valor']) ?>">
         </div>
 
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select name="status" id="status">
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select name="status" id="status" class="form-select">
                 <option value="ativo" <?= old('status', $sensor['status']) === 'ativo' ? 'selected' : '' ?>>Ativo</option>
-                <option value="inativo" <?= old('status', $sensor['status']) === 'inativo' ? 'selected' : '' ?>>Inativo</option>
+                <option value="inativo" <?= old('status', 'inativo') === 'inativo' ? 'selected' : '' ?>>Inativo</option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Atualizar Sensor</button>
+        <button type="submit" class="btn btn-primary">Atualizar Sensor</button>
         <a href="<?= site_url('sensores') ?>" class="btn btn-secondary">Cancelar</a>
 
     <?= form_close() ?>
 
-</body>
-</html>
+<?= $this->endSection() ?>
