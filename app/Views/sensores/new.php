@@ -19,37 +19,38 @@
     </style>
 </head>
 <body>
-
     <h1><?= esc($title) ?></h1>
 
+    <?= validation_list_errors() ?>
+
     <?= form_open('sensores/create') ?>
-    
 
         <div class="form-group">
             <label for="nome">Nome do Sensor</label>
-            <input type="text" name="nome" id="nome" required>
+            <input type="text" name="nome" id="nome" value="<?= old('nome') ?>" required>
         </div>
 
         <div class="form-group">
             <label for="tipo">Tipo</label>
-            <input type="text" name="tipo" id="tipo">
+            <input type="text" name="tipo" id="tipo" value="<?= old('tipo') ?>">
         </div>
 
         <div class="form-group">
             <label for="valor">Valor</label>
-            <input type="number" step="0.01" name="valor" id="valor">
+            <input type="number" step="0.01" name="valor" id="valor" value="<?= old('valor') ?>">
         </div>
 
         <div class="form-group">
             <label for="status">Status</label>
             <select name="status" id="status">
-                <option value="ativo">Ativo</option>
-                <option value="inativo">Inativo</option>
+                <option value="ativo" <?= old('status') === 'ativo' ? 'selected' : '' ?>>Ativo</option>
+                <option value="inativo" <?= old('status') === 'inativo' ? 'selected' : '' ?>>Inativo</option>
             </select>
         </div>
 
         <button type="submit" class="btn btn-success">Salvar</button>
         <a href="<?= site_url('sensores') ?>" class="btn btn-secondary">Cancelar</a>
 
-    <?= form_close() ?> </body>
+    <?= form_close() ?>
+</body>
 </html>

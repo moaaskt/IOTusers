@@ -10,7 +10,7 @@
         label { display: block; margin-bottom: 5px; }
         input[type="text"], input[type="number"], select { width: 100%; padding: 8px; box-sizing: border-box; }
         .btn { padding: 10px 15px; color: white; text-decoration: none; border-radius: 3px; border: none; cursor: pointer; }
-        .btn-success { background-color: #007bff; } /* Botão azul para atualizar */
+        .btn-success { background-color: #007bff; }
         a.btn-secondary { background-color: #6c757d; display: inline-block; }
     </style>
 </head>
@@ -18,28 +18,30 @@
 
     <h1><?= esc($title) ?></h1>
 
+    <?= validation_list_errors() ?>
+
     <?= form_open('sensores/update/' . $sensor['id']) ?>
 
         <div class="form-group">
             <label for="nome">Nome do Sensor</label>
-            <input type="text" name="nome" id="nome" value="<?= esc($sensor['nome']) ?>" required>
+            <input type="text" name="nome" id="nome" value="<?= old('nome', $sensor['nome']) ?>" required>
         </div>
 
         <div class="form-group">
             <label for="tipo">Tipo</label>
-            <input type="text" name="tipo" id="tipo" value="<?= esc($sensor['tipo']) ?>">
+            <input type="text" name="tipo" id="tipo" value="<?= old('tipo', $sensor['tipo']) ?>">
         </div>
 
         <div class="form-group">
             <label for="valor">Valor</label>
-            <input type="number" step="0.01" name="valor" id="valor" value="<?= esc($sensor['valor']) ?>">
+            <input type="number" step="0.01" name="valor" id="valor" value="<?= old('valor', $sensor['valor']) ?>">
         </div>
 
         <div class="form-group">
             <label for="status">Status</label>
             <select name="status" id="status">
-                <option value="ativo" <?= ($sensor['status'] === 'ativo') ? 'selected' : '' ?>>Ativo</option>
-                <option value="inativo" <?= ($sensor['status'] === 'inativo') ? 'selected' : '' ?>>Inativo</option>
+                <option value="ativo" <?= old('status', $sensor['status']) === 'ativo' ? 'selected' : '' ?>>Ativo</option>
+                <option value="inativo" <?= old('status', $sensor['status']) === 'inativo' ? 'selected' : '' ?>>Inativo</option>
             </select>
         </div>
 

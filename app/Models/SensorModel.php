@@ -6,14 +6,30 @@ use CodeIgniter\Model;
 
 class SensorModel extends Model
 {
-    protected $table            = 'sensores'; // Nome da sua tabela
-    protected $primaryKey       = 'id';       // Chave primária da tabela
-
+    protected $table            = 'sensores';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-
-    // Campos que podem ser preenchidos pelo usuário
     protected $allowedFields    = ['nome', 'tipo', 'valor', 'status'];
 
-    // Habilita o uso de created_at e updated_at (opcional, mas bom)
-    protected $useTimestamps = false; // Sua tabela já tem 'criado_em', então vamos deixar false por enquanto para simplificar.
+    // --- ADICIONE O CÓDIGO ABAIXO ---
+
+    // Regras de validação
+    protected $validationRules = [
+        'nome'  => 'required|min_length[3]|max_length[100]',
+        'valor' => 'permit_empty|numeric',
+        'status' => 'required'
+    ];
+
+    // Mensagens de erro personalizadas
+    protected $validationMessages = [
+        'nome' => [
+            'required'   => 'O campo Nome do Sensor é obrigatório.',
+            'min_length' => 'O nome do sensor precisa ter pelo menos 3 caracteres.'
+        ],
+        'valor' => [
+            'numeric' => 'O campo Valor precisa ser um número.'
+        ]
+    ];
+
+    // --- FIM DO CÓDIGO A SER ADICIONADO ---
 }
