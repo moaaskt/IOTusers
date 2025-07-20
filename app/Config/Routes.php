@@ -15,11 +15,14 @@ $routes->post('auth/attempt-login', 'AuthController::attemptLogin');
 $routes->get('logout', 'AuthController::logout');
 
 // --- Rotas Manuais para o CRUD ---
-$routes->get('sensores', 'Sensores::index');          // Rota para a lista
-$routes->get('sensores/new', 'Sensores::new');        // Rota para mostrar o formulário
-$routes->post('sensores/create', 'Sensores::create');   // Rota para salvar os dados do formulário
-$routes->get('sensores/edit/(:num)', 'Sensores::edit/$1');
-$routes->post('sensores/update/(:num)', 'Sensores::update/$1');
-$routes->post('sensores/delete/(:num)', 'Sensores::delete/$1');
+// Grupo de rotas que exigem autenticação (passam pelo filtro 'auth')
+$routes->group('sensores', ['filter' => 'auth'], static function ($routes) {
+    $routes->get('/', 'Sensores::index');
+    $routes->get('new', 'Sensores::new');
+    $routes->post('create', 'Sensores::create');
+    $routes->get('edit/(:num)', 'Sensores::edit/$1');
+    $routes->post('update/(:num)', 'Sensores::update/$1');
+    $routes->post('delete/(:num)', 'Sensores::delete/$1');
+});
 
 
