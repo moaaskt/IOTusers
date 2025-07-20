@@ -56,4 +56,4 @@ O projeto evoluiu para se tornar uma aplicação web completa, segura e escaláv
 
 ## 👨‍💻 Autor
 
-Projeto desenvolvido por **[Seu Nome Aqui]**.
+Projeto desenvolvido por mim mesmo.
