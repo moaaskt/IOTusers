@@ -14,3 +14,4 @@ $routes->get('sensores/new', 'Sensores::new');        // Rota para mostrar o for
 $routes->post('sensores/create', 'Sensores::create');   // Rota para salvar os dados do formulário
 $routes->get('sensores/edit/(:num)', 'Sensores::edit/$1');
 $routes->post('sensores/update/(:num)', 'Sensores::update/$1');
+$routes->post('sensores/delete/(:num)', 'Sensores::delete/$1');

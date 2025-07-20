@@ -1,26 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title><?= esc($title) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: sans-serif; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .btn { padding: 5px 10px; color: white; text-decoration: none; border-radius: 3px; }
-        .btn-add { background-color: #28a745; }
-        .btn-edit { background-color: #007bff; }
-        .btn-delete { background-color: #dc3545; }
+        body {
+            font-family: sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .btn-add {
+            background-color: #28a745;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
     </style>
 </head>
+
 <body>
-<?php if (session()->getFlashdata('success')): ?>
-    <div style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
-        <?= session()->getFlashdata('success') ?>
-    </div>
-<?php endif; ?>
+    <?php if (session()->getFlashdata('success')): ?>
+        <div
+            style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
 
 
     <h1><?= esc($title) ?></h1>
@@ -47,9 +81,12 @@
                     <td><?= esc($sensor['tipo']) ?></td>
                     <td><?= esc($sensor['valor']) ?></td>
                     <td><?= esc($sensor['status']) ?></td>
-                    <td>
+                    <td style="display: flex; gap: 5px;">
                         <a href="<?= site_url('sensores/edit/' . $sensor['id']) ?>" class="btn btn-edit">Editar</a>
-                        <a href="#" class="btn btn-delete">Excluir</a>
+
+                        <?= form_open('sensores/delete/' . $sensor['id'], ['onsubmit' => "return confirm('Tem certeza que deseja excluir este sensor?');"]) ?>
+                        <button type="submit" class="btn btn-delete">Excluir</button>
+                        <?= form_close() ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -61,4 +98,5 @@
     </table>
 
 </body>
+
 </html>
