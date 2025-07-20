@@ -37,8 +37,8 @@ O projeto evoluiu para se tornar uma aplicação web completa, segura e escaláv
 ## 📸 Demonstração
 
 **Tela de Login**
-![Tela de Login](https://i.imgur.com/your-login-image-url.png) **Tela Principal (CRUD de Sensores)**
-![Tela de Listagem de Sensores](https://i.imgur.com/uR2K7n3.png)
+![Tela de Login](https://raw.githubusercontent.com/moaaskt/IOTusers/refs/heads/main/login.jpg) **Tela Principal (CRUD de Sensores)**
+![Tela de Listagem de Sensores](https://raw.githubusercontent.com/moaaskt/IOTusers/refs/heads/main/FireShot%20Capture%20003%20-%20CRUD%20Sensores%20-%20Lista%20de%20Sensores%20-%20%5Blocalhost%5D.jpg)
 
 ---
 
